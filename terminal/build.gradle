@@ -1,4 +1,16 @@
 apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+
+// Para publicar no repositório local
+// i.e. o "mvn install" do gradle
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
 
 sourceSets {
     main {
@@ -17,9 +29,16 @@ sourceSets {
 }
 
 dependencies {
-    compile ':log4j:1.2.14'
-    compile ':annotations'
-    compile ':guava:14.0.1'
+    
+/*
+        Tive de copiar a informação completa de JediTerm/build.gradle
+        pq senão o pom gerado ao instalar no repositório local do Maven
+        ficava incompleto.
+*/
+    
+    compile 'log4j:log4j:1.2.14'
+    compile 'org.jetbrains:annotations:13.0'
+    compile 'com.google.guava:guava:14.0.1'
 
     testCompile ':junit:4.10'
 }
