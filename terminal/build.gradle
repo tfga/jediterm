@@ -4,10 +4,20 @@ apply plugin: 'maven-publish'
 
 // Para publicar no repositório local
 // i.e. o "mvn install" do gradle
+
+// Source jar
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
         }
     }
 }
